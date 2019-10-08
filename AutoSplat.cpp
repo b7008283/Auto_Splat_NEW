@@ -715,8 +715,6 @@ int CopyTIM2Buffer(int sourcex, int sourcey, int destx, int desty, int rot)
 			case 6:  //DONE
 				if (rot == 6) //Rotate 270
 				{
-					//4.71239 270Radians
-					//x2 = (x * 4.71239);
 					x2 = y;
 					y2 = 31 - x;
 					SetBufferPixel(x2 + destx, y2 + desty, c);
@@ -750,21 +748,23 @@ int DrawSegments2Buffer(SEGMENT* pSegments)
 	// TO DO: Implement this function (see slides)
 	// Note the code below should copy the TIM at index "tileIndex" to the map grid square "mapIndex" 
 
-	//CopyTIM2Buffer(_TIMXPOS(tileIndex), _TIMYPOS(tileIndex), _MAPXPOS(mapIndex), _MAPYPOS(mapIndex), tileRot);
 
+	//scan through all the segments
 	for (int ySeg(0); ySeg <= 15; ySeg++) {
 		for (int xSeg(0); xSeg <= 15; xSeg++) {
 			int segNum = (ySeg * 16) + xSeg;
 			SEGMENT segment = pSegments[segNum];
 
 
-
+			//scan across all the polystruct segments
 			for (int yPoly(0); yPoly < 4; yPoly++) {
 				for (int xPoly(0); xPoly < 4; xPoly++) {
 					POLYSTRUCT polystruct = segment.strTilePolyStruct[(yPoly * 4) + xPoly];
 
-					//CopyTIM2Buffer(_TIMXPOS(polystruct.cTileRef), _TIMYPOS(polystruct.cTileRef), _MAPXPOS((xPoly * 4) + xPoly), _MAPYPOS((yPoly * 4) + yPoly), polystruct.cRot);
+
+					//scan though maps tiles by the number of segments in the polystruct
 					CopyTIM2Buffer(_TIMXPOS(polystruct.cTileRef), _TIMYPOS(polystruct.cTileRef), (((xSeg * 4) + xPoly) *32), (((ySeg * 4) + yPoly)*32), polystruct.cRot);
+					//CopyTIM2Buffer(_TIMXPOS(polystruct.cTileRef), _TIMYPOS(polystruct.cTileRef), _MAPXPOS((xPoly * 4) + xPoly), _MAPYPOS((yPoly * 4) + yPoly), polystruct.cRot);
 
 				}
 			}
