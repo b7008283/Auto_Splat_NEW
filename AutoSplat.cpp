@@ -658,23 +658,23 @@ int CopyTIM2Buffer(int sourcex, int sourcey, int destx, int desty, int rot)
 		for (int y(0); y < 32; y++) {
 			Color c = GetPixel(sourcex + x, sourcey + y);
 
+			int x2, x3;
+			int y2, y3;
+			int color;
+			int angle;
+
 			switch (rot) {
-			case(0) :
+			case 0:	//DONE
 				if (rot == 0) //Normal
 				{
 					SetBufferPixel(x + destx, y + desty, c);
 				}
 				break;
-			case(1):
-				if (rot == 1) //Normal
+			case 1: //DONE
+				if (rot == 1) //Flip in X
 				{
-					SetBufferPixel(x + destx, y + desty, c);
-				}
-				break;
-			case(2):
-				if (rot == 2) //Normal
-				{
-					SetBufferPixel(x + destx, y + desty, c);
+					x2 = 31 - x;
+					SetBufferPixel(x2 + destx, y + desty, c);
 				}
 				break;
 			case(3):
@@ -683,16 +683,19 @@ int CopyTIM2Buffer(int sourcex, int sourcey, int destx, int desty, int rot)
 					SetBufferPixel(x + destx, y + desty, c);
 				}
 				break;
-			case(4):
-				if (rot == 4) //Normal
+			case 4: //DONE
+				if (rot == 4) //Rotate 180
 				{
-					SetBufferPixel(x + destx, y + desty, c);
+					x2 = 31 - x;
+					y2 = 31 - y;
+					SetBufferPixel(x2 + destx, y2 + desty, c);
 				}
 				break;
-			case(5):
-				if (rot == 5) //Normal
+			case 5: //DONE
+				if (rot == 5) //Flip in Y
 				{
-					SetBufferPixel(x + destx, y + desty, c);
+					y2 = 31 - y;
+					SetBufferPixel(x + destx, y2 + desty, c);
 				}
 				break;
 			case(6):
