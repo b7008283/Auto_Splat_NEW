@@ -7,6 +7,9 @@ using namespace std;
 #include <vector>
 #include "drawing.h"
 #include "AutoSplat.h"
+#include <math.h>       /* sin */
+
+#define PI 3.14159265;
 
 
 // These macros define the positions of everything on the screen
@@ -656,6 +659,7 @@ int CopyTIM2Buffer(int sourcex, int sourcey, int destx, int desty, int rot)
 
 	for (int x(0); x < 32; x++) {
 		for (int y(0); y < 32; y++) {
+
 			Color c = GetPixel(sourcex + x, sourcey + y);
 
 			int x2, x3;
@@ -672,15 +676,25 @@ int CopyTIM2Buffer(int sourcex, int sourcey, int destx, int desty, int rot)
 				break;
 			case 1: //DONE
 				if (rot == 1) //Flip in X
-				{
+				{	
 					x2 = 31 - x;
 					SetBufferPixel(x2 + destx, y + desty, c);
 				}
 				break;
-			case(3):
-				if (rot == 3) //Normal
+			case 2: //DONE
+				if (rot == 2) //Rotate 90
 				{
-					SetBufferPixel(x + destx, y + desty, c);
+					x2 = 31 - y;
+					y2 = x;
+					SetBufferPixel(x2 + destx, y2 + desty, c);
+				}
+				break;
+			case 3: //DONE
+				if (rot == 3) //Flip x & Rotate 90
+				{
+					x2 = 31 - x;
+					y2 = 31 - y;
+					SetBufferPixel(y2 + destx, x2 + desty, c);
 				}
 				break;
 			case 4: //DONE
@@ -698,23 +712,27 @@ int CopyTIM2Buffer(int sourcex, int sourcey, int destx, int desty, int rot)
 					SetBufferPixel(x + destx, y2 + desty, c);
 				}
 				break;
-			case(6):
-				if (rot == 6) //Normal
+			case 6:  //DONE
+				if (rot == 6) //Rotate 270
 				{
-					SetBufferPixel(x + destx, y + desty, c);
+					//4.71239 270Radians
+					//x2 = (x * 4.71239);
+					x2 = y;
+					y2 = 31 - x;
+					SetBufferPixel(x2 + destx, y2 + desty, c);
 				}
 				break;
-			case(7):
-				if (rot == 7) //Normal
+			case 7: //DONE
+				if (rot == 7) //Flip in X & Rotate 270
 				{
-					SetBufferPixel(x + destx, y + desty, c);
+					x2 = y;
+					y2 = x;
+					SetBufferPixel(x2 + destx, y2 + desty, c);
 				}
 				break;
-
 			}
 			//color = GetPixel(sourcex + x2, sourcey + y2);
-
-			//SetBufferPixel(x + destx, y + desty, c);
+			//SetBufferPixel(x2 + destx, y2 + desty, c);
 		}
 	}
 
@@ -738,6 +756,7 @@ int DrawSegments2Buffer(SEGMENT* pSegments)
 		for (int xSeg(0); xSeg <= 15; xSeg++) {
 			int segNum = (ySeg * 16) + xSeg;
 			SEGMENT segment = pSegments[segNum];
+
 
 
 			for (int yPoly(0); yPoly < 4; yPoly++) {
