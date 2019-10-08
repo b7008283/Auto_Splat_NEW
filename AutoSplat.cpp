@@ -660,26 +660,58 @@ int CopyTIM2Buffer(int sourcex, int sourcey, int destx, int desty, int rot)
 
 			switch (rot) {
 			case(0) :
+				if (rot == 0) //Normal
+				{
+					SetBufferPixel(x + destx, y + desty, c);
+				}
 				break;
 			case(1):
+				if (rot == 1) //Normal
+				{
+					SetBufferPixel(x + destx, y + desty, c);
+				}
 				break;
 			case(2):
+				if (rot == 2) //Normal
+				{
+					SetBufferPixel(x + destx, y + desty, c);
+				}
 				break;
 			case(3):
+				if (rot == 3) //Normal
+				{
+					SetBufferPixel(x + destx, y + desty, c);
+				}
 				break;
 			case(4):
+				if (rot == 4) //Normal
+				{
+					SetBufferPixel(x + destx, y + desty, c);
+				}
 				break;
 			case(5):
+				if (rot == 5) //Normal
+				{
+					SetBufferPixel(x + destx, y + desty, c);
+				}
 				break;
 			case(6):
+				if (rot == 6) //Normal
+				{
+					SetBufferPixel(x + destx, y + desty, c);
+				}
 				break;
 			case(7):
+				if (rot == 7) //Normal
+				{
+					SetBufferPixel(x + destx, y + desty, c);
+				}
 				break;
 
 			}
 			//color = GetPixel(sourcex + x2, sourcey + y2);
 
-			SetBufferPixel(x + destx, y + desty, c);
+			//SetBufferPixel(x + destx, y + desty, c);
 		}
 	}
 
